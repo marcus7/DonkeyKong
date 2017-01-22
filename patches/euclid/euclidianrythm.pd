@@ -1,20 +1,20 @@
-#N canvas 134 97 1102 580 10;
+#N canvas 1382 238 1102 580 10;
 #N canvas 0 50 450 250 (subpatch) 0;
 #X array mixer 3 float 3;
-#A 0 0.885714 0.628572 1.14286;
+#A 0 1.22857 1.42857 2.22857;
 #X coords 0 2 3 0 200 140 1 0 0;
 #X restore 306 58 graph;
 #N canvas 0 50 450 250 (subpatch) 0;
 #X array hitsperbar 3 float 3;
-#A 0 7.2 4.91429 8.57143;
+#A 0 6.51429 7.54286 14.9714;
 #X coords 0 16 3 0 200 140 1 0 0;
 #X restore 303 221 graph;
 #N canvas 0 50 450 250 (subpatch) 0;
 #X array offsets 3 float 3;
-#A 0 0.457143 3.99999 10.8571;
+#A 0 1.48571 1.48571 0.685713;
 #X coords 0 16 3 0 200 140 1 0 0;
 #X restore 306 388 graph;
-#N canvas 0 50 1280 647 kick 0;
+#N canvas 428 153 1280 647 kick 1;
 #X obj 272 242 *~;
 #X obj 257 450 dac~;
 #X obj 382 291 tabread mixer;
@@ -39,6 +39,8 @@
 #X obj 464 504 dac~;
 #X obj 462 464 rev2~ 60 90 3000 20;
 #X obj 380 189 euclidtrigger~ 0;
+#X obj 381 164 tgl 15 0 empty trig_on empty 17 7 0 10 -262144 -1 -1
+0 1;
 #X connect 0 0 5 0;
 #X connect 2 0 3 1;
 #X connect 3 0 1 0;
@@ -61,8 +63,9 @@
 #X connect 22 0 21 0;
 #X connect 22 1 21 1;
 #X connect 23 0 0 1;
+#X connect 24 0 23 0;
 #X restore 305 13 pd kick;
-#N canvas 0 50 1280 647 snare 0;
+#N canvas 760 314 1280 647 snare 0;
 #X obj 272 242 *~;
 #X obj 257 450 dac~;
 #X obj 382 291 tabread mixer;
@@ -89,6 +92,8 @@
 #X obj 354 349 delwrite~ s 500;
 #X obj 353 377 delread~ s 50;
 #X obj 462 464 rev2~ 66 55 3000 120;
+#X obj 381 164 tgl 15 0 empty trig_on empty 17 7 0 10 -262144 -1 -1
+1 1;
 #X connect 0 0 3 0;
 #X connect 2 0 3 1;
 #X connect 3 0 1 0;
@@ -112,6 +117,7 @@
 #X connect 24 0 25 0;
 #X connect 25 0 13 0;
 #X connect 25 1 13 1;
+#X connect 26 0 14 0;
 #X restore 380 13 pd snare;
 #N canvas 541 175 1446 851 hat 0;
 #X obj 272 242 *~;
@@ -133,6 +139,8 @@
 #X msg 382 261 2;
 #X obj 380 189 euclidtrigger~ 2;
 #X obj 255 181 *~ 0.01;
+#X obj 381 164 tgl 15 0 empty trig_on empty 17 7 0 10 -262144 -1 -1
+1 1;
 #X connect 0 0 3 0;
 #X connect 2 0 3 1;
 #X connect 3 0 1 0;
@@ -149,6 +157,7 @@
 #X connect 16 0 2 0;
 #X connect 17 0 0 1;
 #X connect 18 0 0 0;
+#X connect 19 0 17 0;
 #X restore 461 13 pd hat;
 #N canvas 681 142 1331 454 clock 0;
 #X obj 366 207 metro 100;
@@ -194,20 +203,20 @@
 #X connect 20 0 1 0;
 #X restore 75 138 pd clock;
 #X obj 78 84 hsl 128 15 30 300 0 0 empty bpm empty -2 -8 0 10 -262144
--1 -1 2916 1;
+-1 -1 4716 1;
 #X obj 151 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 1
 1;
 #X floatatom 75 111 5 0 0 0 - - -, f 5;
 #X text 42 111 bpm;
 #X text 177 117 <- start here;
-#N canvas 405 228 566 349 init 0;
+#N canvas 405 228 566 349 init 1;
 #X floatatom 119 105 5 0 0 0 - - -, f 5;
 #X obj 119 58 loadbang;
 #X msg 119 82 16;
 #X obj 119 129 s beatsperbar;
 #X msg 57 92 92;
 #X obj 58 122 s bpm;
-#X msg 288 97 \; pd dsp 1;
+#X msg 288 97 \; trig_on 1 \; pd dsp 1;
 #X connect 0 0 3 0;
 #X connect 1 0 2 0;
 #X connect 1 0 4 0;
@@ -216,18 +225,18 @@
 #X connect 4 0 5 0;
 #X restore 694 50 pd init;
 #X obj 61 274 hsl 128 15 1 64 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 0 1;
+-1 -1 4700 1;
 #X floatatom 63 336 5 0 0 0 - - beatsperbar, f 5;
 #X text 50 251 beatsperbar;
 #X obj 62 304 int;
 #N canvas 0 50 450 250 (subpatch) 0;
 #X array attacks 3 float 3;
-#A 0 114.286 350 57.143;
+#A 0 10.7143 21.4286 46.4286;
 #X coords 0 500 3 0 200 140 1 0 0;
 #X restore 548 223 graph;
 #N canvas 0 50 450 250 (subpatch) 0;
 #X array decays 3 float 3;
-#A 0 292.857 210.714 96.4286;
+#A 0 171.429 125.001 489.286;
 #X coords 0 500 3 0 200 140 1 0 0;
 #X restore 551 394 graph;
 #X connect 7 0 9 0;
